@@ -35,7 +35,7 @@ A simple **client-server** chat application using **Java socket programming**. M
 1. Clone the repository:
    ```bash
    git clone https://github.com/Muhammed-Amer/GroupChat.git
-   cd GroupChat
+   cd GroupChat/src
    ```
 2. Compile the server and client:
 
