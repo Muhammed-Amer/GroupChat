@@ -29,9 +29,11 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             while(socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
-                bufferedWriter.write(userName + ": " + messageToSend);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
+                if(!messageToSend.isEmpty()) {
+                    bufferedWriter.write(userName + ": " + messageToSend);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                }
             }
         } catch (IOException e) {
             closeEveryThing(socket, bufferedReader, bufferedWriter);
@@ -48,6 +50,13 @@ public class Client {
                 while(socket.isConnected()) {
                     try {
                         messageFromGroupChat = bufferedReader.readLine();
+
+                        if (messageFromGroupChat == null || messageFromGroupChat.equals("SERVER_SHUTDOWN")) {
+                            System.out.println("SERVER: SERVER CLOSED!");
+                            closeEveryThing(socket, bufferedReader, bufferedWriter);
+                            System.exit(0);
+                            break;
+                        }
                         System.out.println(messageFromGroupChat);
                     } catch (IOException e) {
                         closeEveryThing(socket, bufferedReader, bufferedWriter);

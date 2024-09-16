@@ -37,8 +37,12 @@ public class Server {
     // when an error occurs we need to shut down our serverSocket
     public void closeServerSocket() {
         try {
+            for (ClientHandler clientHandler : ClientHandler.clientHandlers) {
+                clientHandler.broadCastMessage("SERVER_SHUTDOWN");
+            }
             if(serverSocket != null) {
                 serverSocket.close();
+                System.out.println("Server closed!");
             }
         } catch(IOException e) {
             e.printStackTrace();
